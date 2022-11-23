@@ -16,7 +16,20 @@ const routes = [
   {
     path: "/home",
     name: "Home",
+    redirect: "/welcome",
     component: () => import("../components/Home.vue"),
+    children: [
+      {
+        path: "/welcome",
+        name: "Welcome",
+        component: () => import("../components/Welcome.vue"),
+      },
+      {
+        path: "/users",
+        name: "Users",
+        component: () => import("../components/user/Users.vue"),
+      },
+    ],
   },
 ];
 
