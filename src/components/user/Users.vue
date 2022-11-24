@@ -37,7 +37,7 @@
             <!-- edit -->
             <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.id)"></el-button>
             <!-- delete -->
-            <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
             <!-- assign -->
             <el-tooltip key="" effect="dark" content="Assign Roles" placement="top" :enterable="false">
               <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
@@ -73,11 +73,21 @@
     </el-dialog>
 
     <!-- edit users -->
-    <el-dialog title="修改用户" :visible.sync="editDialogVisible" width="50%">
-      <span>这是一段信息</span>
+    <el-dialog title="修改用户" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
+      <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="100px">
+        <el-form-item label="username" prop="username">
+          <el-input v-model="editForm.username" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="email" prop="email">
+          <el-input v-model="editForm.email"></el-input>
+        </el-form-item>
+        <el-form-item label="mobile" prop="mobile">
+          <el-input v-model="editForm.mobile"></el-input>
+        </el-form-item>
+      </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editDialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="editUserInfo">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -109,7 +119,6 @@ export default {
       callback(new Error('请输入合法的手机号'));
     };
     return {
-
       queryInfo: {
         query: '',
         pagenum: 1,
@@ -144,7 +153,21 @@ export default {
         ]
       },
       editDialogVisible: false,
-      editForm: {}
+      editForm: {
+        username: '',
+        email: '',
+        mobile: ''
+      },
+      editFormRules: {
+        email: [
+          { required: true, message: '请输入用户邮箱', trigger: 'blur' },
+          { validator: checkEmail, trigger: 'blur' }
+        ],
+        mobile: [
+          { required: true, message: '请输入用户手机', trigger: 'blur' },
+          { validator: checkMobile, trigger: 'blur' }
+        ]
+      }
 
     }
   },
@@ -203,7 +226,50 @@ export default {
       this.editForm = res.data;
       this.editDialogVisible = true;
     },
+    editDialogClosed () {
+      this.$refs.editFormRef.resetFields();
+    },
+    editUserInfo () {
+      this.$refs.editFormRef.validate(async valid => {
+        if (!valid) return;
+        const { data: res } = await this.$http.put(
+          `users/${this.editForm.id}`,
+          {
+            email: this.editForm.email,
+            mobile: this.editForm.mobile
+          }
+        );
 
+        if (res.meta.status !== 200) {
+          return this.$message.error('更新用户信息失败！');
+        }
+
+        this.editDialogVisible = false;
+        this.getUserList();
+        this.$message.success('更新用户信息成功！');
+      });
+    },
+    async removeUserById (id) {
+      //dialog
+      const confirmResult = await this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch(err => err);
+      // console.log(confirmResult);
+      if (confirmResult !== 'confirm') {
+        return this.$message.info('已经取消删除');
+      }
+
+      const { data: res } = await this.$http.delete(`users/${id}`);
+      // console.log(res);
+      if (res.meta.status !== 200) {
+        return this.$message.error('删除用户失败!');
+      }
+
+      this.$message.success('删除用户成功！');
+      this.getUserList();
+    }
   },
 }
 </script>
