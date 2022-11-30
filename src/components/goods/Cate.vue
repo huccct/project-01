@@ -200,9 +200,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-cascader-panel {
-  height: 300px !important;
-}
 .treeTable {
   margin-top: 15px;
 }
