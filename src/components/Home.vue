@@ -3,17 +3,21 @@
     <!-- header -->
     <el-header>
       <div>
-        <img src="../assets/logo.jpg" alt="" />
-        <span>Content Manage System</span>
+        <img src="../assets/logo.jpg" alt="" class="logo" />
+        <span>Manage System</span>
+        <div class="toggle-button" @click="toggleCollapse" v-show="!isCollapse">
+          <img src="../assets/imgs/expand.png" alt="" />
+        </div>
+        <div class="toggle-button" @click="toggleCollapse" v-show="isCollapse">
+          <img src="../assets/imgs/shrive.png" alt="" />
+        </div>
       </div>
       <el-button type="info" @click="logout">Logout</el-button>
     </el-header>
     <!-- body -->
-    <el-container>
+    <el-container class="container">
       <!-- aside -->
       <el-aside :width="isCollapse ? '64px' : '200px'">
-        <div class="toggle-button" @click="toggleCollapse" v-show="!isCollapse" style="font-weight: 500; color: #fff">S</div>
-        <div class="toggle-button" @click="toggleCollapse" v-show="isCollapse" style="font-weight: 500; color: #fff">E</div>
         <!-- navmenu -->
         <el-menu background-color="#343a40" text-color="#fff" active-text-color="#409eff" unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath">
           <!-- one level menu -->
@@ -38,6 +42,9 @@
       <!-- right-body -->
       <el-main>
         <router-view></router-view>
+        <el-footer>
+          <div class="footer">©Power By Group Thirteen</div>
+        </el-footer>
       </el-main>
     </el-container>
   </el-container>
@@ -95,20 +102,20 @@ export default {
   background-color: #373d41;
   display: flex;
   justify-content: space-between;
-  padding-left: 20px;
+  padding-left: 15px;
   align-items: center;
   color: #fff;
-  font-size: 20px;
+  font-size: 15px;
   > div {
     display: flex;
     align-items: center;
-    img {
+    .logo {
       width: 30px;
       height: 30px;
       border-radius: 20px;
     }
     span {
-      margin-left: 15px;
+      margin-left: 10px;
       font-weight: 700;
     }
   }
@@ -129,13 +136,23 @@ export default {
 }
 
 .toggle-button {
-  background-color: #4a5064;
-  font-style: 10px;
-  line-height: 24px;
-  text-align: center;
-  letter-spacing: 0.2em;
   cursor: pointer;
+  margin-left: 30px;
+  font-size: 14px;
 }
-
+.toggle-button img {
+  width: 20px;
+  height: 20px;
+}
+.footer {
+  margin-top: 60px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #909399;
+}
+.container {
+  height: calc(100vh - 90px);
+}
 </style>
 

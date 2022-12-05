@@ -22,7 +22,7 @@
       </el-row>
 
       <!-- 用户列表区域 -->
-      <el-table :data="userlist" border stripe>
+      <el-table :data="userlist" border stripe row-key="id">
         <el-table-column type="index"></el-table-column>
         <el-table-column label="username" prop="username"></el-table-column>
         <el-table-column label="email" prop="email"></el-table-column>
@@ -227,6 +227,7 @@ export default {
       if (res.meta.status !== 200) {
         return this.$message.error('获取用户列表失败！')
       }
+      console.log(res);
       this.userlist = res.data.users
       this.total = res.data.total
       // console.log(res)

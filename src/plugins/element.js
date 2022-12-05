@@ -8,6 +8,7 @@ import {
   Container,
   Header,
   Aside,
+  Footer,
   Main,
   Menu,
   Submenu,
@@ -37,6 +38,8 @@ import {
   CheckboxGroup,
   Checkbox,
   Upload,
+  Divider,
+  Calendar,
 } from "element-ui";
 
 import Timeline from "./timeline/index.js";
@@ -51,6 +54,7 @@ Vue.use(Container);
 Vue.use(Header);
 Vue.use(Aside);
 Vue.use(Main);
+Vue.use(Footer);
 Vue.use(Menu);
 Vue.use(Submenu);
 Vue.use(MenuItem);
@@ -78,6 +82,8 @@ Vue.use(Steps);
 Vue.use(CheckboxGroup);
 Vue.use(Checkbox);
 Vue.use(Upload);
+Vue.use(Divider);
+Vue.use(Calendar);
 Vue.use(Timeline);
 Vue.use(TimelineItem);
 Vue.prototype.$message = Message;

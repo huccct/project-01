@@ -35,14 +35,16 @@
                     <i class="el-icon-caret-right"></i>
                   </el-col>
                   <el-col :span="18">
-                    <el-tag type="warning" v-for="(item3, i3) in item2.children" :key="item3.id" closable @close="removeRightById(scope.row, item3.id)"> {{ item3.authName }} </el-tag>
+                    <el-tag type="warning" v-for="item3 in item2.children" :key="item3.id" closable @close="removeRightById(scope.row, item3.id)"> {{ item3.authName }} </el-tag>
                   </el-col>
                 </el-row>
               </el-col>
             </el-row>
           </template>
         </el-table-column>
+
         <!--  -->
+        <el-table-column label="编号" type="index"> </el-table-column>
         <el-table-column label="角色名称" prop="roleName"></el-table-column>
         <el-table-column label="角色描述" prop="roleDesc"></el-table-column>
         <el-table-column label="操作" width="300px">
@@ -95,6 +97,7 @@ export default {
       }
 
       this.roleList = res.data
+      // console.log(res.data);
     },
     // 根据Id删除对应的权限
     async removeRightById (role, rightId) {
@@ -164,6 +167,10 @@ export default {
       }
       this.getRolesList();
       this.setRightDialogVisible = false;
+    },
+    rowClassName ({ row, rowIndex }) {
+      //把每一行的索引加一放进row.id
+      row.id = rowIndex + 1;
     }
   },
 }
@@ -186,5 +193,4 @@ export default {
   display: flex;
   align-items: center;
 }
-
 </style>

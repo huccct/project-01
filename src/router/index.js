@@ -11,63 +11,99 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: () => import("../components/Login.vue"),
+    component: () =>
+      import(
+        /* webpackChunkName: "login_Home_Welcome" */ "../components/Login.vue"
+      ),
   },
   {
     path: "/home",
     name: "Home",
     redirect: "/welcome",
-    component: () => import("../components/Home.vue"),
+    component: () =>
+      import(
+        /* webpackChunkName: "login_Home_Welcome" */ "../components/Home.vue"
+      ),
     children: [
       {
         path: "/welcome",
         name: "Welcome",
-        component: () => import("../components/Welcome.vue"),
+        component: () =>
+          import(
+            /* webpackChunkName: "login_Home_Welcome" */ "../components/Welcome.vue"
+          ),
       },
       {
         path: "/users",
         name: "Users",
-        component: () => import("../components/user/Users.vue"),
+        component: () =>
+          import(
+            /* webpackChunkName: "Users_Rights_Roles" */ "../components/user/Users.vue"
+          ),
       },
       {
         path: "/rights",
         name: "Rights",
-        component: () => import("../components/power/Rights.vue"),
+        component: () =>
+          import(
+            /* webpackChunkName: "Users_Rights_Roles" */ "../components/power/Rights.vue"
+          ),
       },
       {
         path: "/roles",
         name: "Roles",
-        component: () => import("../components/power/Roles.vue"),
+        component: () =>
+          import(
+            /* webpackChunkName: "Users_Rights_Roles" */ "../components/power/Roles.vue"
+          ),
       },
       {
         path: "/categories",
         name: "Cate",
-        component: () => import("../components/goods/Cate.vue"),
+        component: () =>
+          import(
+            /* webpackChunkName: "Cate_Params" */ "../components/goods/Cate.vue"
+          ),
       },
       {
         path: "/params",
         name: "Params",
-        component: () => import("../components/goods/Params.vue"),
+        component: () =>
+          import(
+            /* webpackChunkName: "Cate_Params" */ "../components/goods/Params.vue"
+          ),
       },
       {
         path: "/goods",
         name: "List",
-        component: () => import("../components/goods/List.vue"),
+        component: () =>
+          import(
+            /* webpackChunkName: "List_Add" */ "../components/goods/List.vue"
+          ),
       },
       {
         path: "/goods/add",
         name: "Add",
-        component: () => import("../components/goods/Add.vue"),
+        component: () =>
+          import(
+            /* webpackChunkName: "List_Add" */ "../components/goods/Add.vue"
+          ),
       },
       {
         path: "/orders",
         name: "Order",
-        component: () => import("../components/order/Order.vue"),
+        component: () =>
+          import(
+            /* webpackChunkName: "Order_Report" */ "../components/order/Order.vue"
+          ),
       },
       {
         path: "/reports",
         name: "Report",
-        component: () => import("../components/report/Report.vue"),
+        component: () =>
+          import(
+            /* webpackChunkName: "Order_Report" */ "../components/report/Report.vue"
+          ),
       },
     ],
   },

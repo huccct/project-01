@@ -9,7 +9,7 @@
 
     <!-- card view -->
     <el-card>
-      <el-table :data="rightsList" border stripe>
+      <el-table :data="rightsList" border stripe row-key="id">
         <el-table-column type="index"></el-table-column>
         <el-table-column label="authName" prop="authName"></el-table-column>
         <el-table-column label="path" prop="path"></el-table-column>
